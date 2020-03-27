@@ -60,7 +60,7 @@ const UpdatePlace = () => {
         fetchPlace();
     }, [sendRequest, placeId, setFormData]);
 
-    const placeUpdateSubmitHandler = event => {
+    const placeUpdateSubmitHandler = async event => {
         event.preventDefault();
         try {
             await sendRequest(`http://localhost:5000/api/places/${placeId}`, 'PATCH', JSON.stringify({
