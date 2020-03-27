@@ -33,7 +33,7 @@ const Auth = () => {
 
         if (isLoginMode) {
             try {
-                await sendRequest('http://localhost:5000/api/users/login', 'POST', 
+                const responseData = await sendRequest('http://localhost:5000/api/users/login', 'POST', 
                 JSON.stringify({
                     email: formState.inputs.email.value,
                     password: formState.inputs.password.value
@@ -41,11 +41,11 @@ const Auth = () => {
                 {
                     'Content-Type': 'application/json'
                 });
-                auth.login(); 
+                auth.login(responseData.user.id); 
             } catch (error) {}
         } else {
             try {
-                await sendRequest('http://localhost:5000/api/users/signup', 'POST',
+                const responseData = await sendRequest('http://localhost:5000/api/users/signup', 'POST',
                 JSON.stringify({
                     name: formState.inputs.name.value,
                     email: formState.inputs.email.value,
@@ -54,7 +54,7 @@ const Auth = () => {
                 {
                     'Content-Type': 'application/json' 
                 });
-                auth.login();
+                auth.login(responseData.user.id);
             } catch (error) {}
         }
     };
