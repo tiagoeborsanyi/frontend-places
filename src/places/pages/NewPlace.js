@@ -38,6 +38,7 @@ const NewPlace = () => {
 
     const placeSubmitHandler = async event => {
         event.preventDefault();
+        console.log(auth.token)
         try {
             const formData = new FormData();
             formData.append('title', formState.inputs.title.value);
@@ -48,7 +49,10 @@ const NewPlace = () => {
             await sendRequest(
                 'http://localhost:5000/api/places', 
                 'POST', 
-                formData
+                formData,
+                {
+                    Authorization: 'Bearer ' + auth.token
+                }
             );
             history.push('/');
         } catch (error) {}
