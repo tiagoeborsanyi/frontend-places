@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 
 import Users from './user/pages/Users';
@@ -11,9 +11,10 @@ import { AuthContext } from './shared/context/auth-context';
 import { useAuth } from './shared/hooks/auth-hook';
 
 const  App = () => {
-  const { token, login, logout, userId } = useAuth;
+  const { token, login, logout, userId } = useAuth();
 
   let routes;
+  console.log(token)
 
   if (token) {
     routes = (
