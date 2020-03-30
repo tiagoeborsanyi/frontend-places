@@ -8,30 +8,10 @@ import UpdatePlace from './places/pages/UpdatePlace';
 import UserPlaces from './places/pages/UserPlaces';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import { AuthContext } from './shared/context/auth-context';
+import { useAuth } from './shared/hooks/auth-hook';
 
 const  App = () => {
-  const [token, setToken] = useState(false);
-  const [userId, setUserId] = useState(false);
-
-  const login = useCallback((uid, token, expirationDate) => {
-    setToken(token);
-    const tokenExpirationDate = expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
-    localStorage.setItem('userData', JSON.stringify({userId: uid, token: token, expiration: tokenExpirationDate.toISOString()}));
-    setUserId(uid);
-  }, []);
-
-  const logout = useCallback(()=> {
-    setToken(null);
-    setUserId(null);
-    localStorage.removeItem('userData');
-  }, []);
-
-  useEffect(() => {
-    const storeData = JSON.parse(localStorage.getItem('userData'));
-    if (storeData && storeData.token && new Date(storeData.expiration) > new Date()) {
-      login(storeData.userId, storeData.token, new Date(storeData.expiration));
-    }
-  }, [login]);
+  const { token, login, logout, userId } = useAuth;
 
   let routes;
 
